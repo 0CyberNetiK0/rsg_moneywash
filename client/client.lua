@@ -122,40 +122,30 @@ Citizen.CreateThread(function()
 	
 end)
 
--- moneywash select form
+-- input
 RegisterNetEvent('rsg_moneywash:client:dowashing', function()
-	local dialog = exports['qb-input']:ShowInput({
-		header = "Super Money Wash",
-		submitText = "wash",
-		inputs = {
-			{
-				text = "How Much",
-				name = "amountselect",
-				type = "select",
-				options = {
-					{ value = 1000, text = "Dirty Money : 1000" },
-					{ value = 5000, text = "Dirty Money : 5000" },
-					{ value = 10000, text = "Dirty Money : 10000" }
-				},
-			},
-		},
-	})
-	if dialog == nil then return end
-	local amountdirty = dialog.amountselect
-	print(amountdirty)
-	local hasItem = QBCore.Functions.HasItem('dirtymoney', amountdirty)
-	if hasItem then
-		TriggerEvent("rsg_moneywash:client:client:washcycle", amountdirty)
-	else
-		QBCore.Functions.Notify("You do not have enough dirty money to do that!", "error")
-	end
+    local input = exports['qb-input']:ShowInput({
+        header = "Super Money Wash",
+        submitText = "wash",
+        inputs = {
+            {
+                type = 'number',
+                isRequired = true,
+                name = 'amount',
+                text = 'amount to wash'
+            }
+        }
+    })
+    if input then
+        if not input.amount then return end
+        TriggerEvent("rsg_moneywash:client:client:washcycle", input.amount)
+    end
 end)
 
 -- start the wash cycle
 RegisterNetEvent('rsg_moneywash:client:client:washcycle')
 AddEventHandler('rsg_moneywash:client:client:washcycle', function(amount)
-	local washtime = amount * 10
-	QBCore.Functions.Progressbar("wash-cycle", "Washing Money..", washtime, false, true, {
+	QBCore.Functions.Progressbar("wash-cycle", "Washing Money..", 30000, false, true, {
 		disableMovement = true,
 		disableCarMovement = true,
 		disableMouse = false,
