@@ -15,18 +15,18 @@ AddEventHandler("rsg_moneywash:server:dowashing", function(amount)
 	local src = source
     local Player = QBCore.Functions.GetPlayer(src)
 	local amount = tonumber(amount)
-	local checkbills = Player.Functions.GetItemByName("markedbills")
-	if checkbills ~= nil then
-		local amountbills = Player.Functions.GetItemByName('markedbills').amount
-		if amountbills >= amount then
-			Player.Functions.RemoveItem('markedbills', amount)
-			TriggerClientEvent('inventory:client:ItemBox', src, QBCore.Shared.Items['markedbills'], "remove")
+	local checkdirty = Player.Functions.GetItemByName("dirtymoney")
+	if checkdirty ~= nil then
+		local amountdirty = Player.Functions.GetItemByName('dirtymoney').amount
+		if amountdirty >= amount then
+			Player.Functions.RemoveItem('dirtymoney', amount)
+			TriggerClientEvent('inventory:client:ItemBox', src, QBCore.Shared.Items['dirtymoney'], "remove")
 			Player.Functions.AddMoney('cash', amount)
-			TriggerClientEvent('QBCore:Notify', src, 'You washed ' ..amount.. ' makred bills!', 'success')
+			TriggerClientEvent('QBCore:Notify', src, 'You washed ' ..amount.. ' dirty money!', 'success')
 		else
-			TriggerClientEvent('QBCore:Notify', src, 'You do not have enough marked bills to do that!', 'error')
+			TriggerClientEvent('QBCore:Notify', src, 'You do not have enough dirty money to do that!', 'error')
 		end
 	else
-		TriggerClientEvent('QBCore:Notify', src, 'You do not have any marked bills!', 'error')
+		TriggerClientEvent('QBCore:Notify', src, 'You do not have any dirty money!', 'error')
 	end
 end)

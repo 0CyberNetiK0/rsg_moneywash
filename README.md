@@ -17,7 +17,6 @@
 - add rsg_moneywash to your resources folder
 - add items to your "\qb-core\shared\items.lua"
 - add images to your "\qb-inventory\html\images"
-- change "markedbills" weight to 0 or 1 in "\qb-core\shared\items.lua"
 
 # Starting the resource
 - add the following to your server.cfg file : ensure rsg_moneywash

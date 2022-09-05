@@ -133,20 +133,21 @@ RegisterNetEvent('rsg_moneywash:client:dowashing', function()
 				name = "amountselect",
 				type = "select",
 				options = {
-					{ value = 1000, text = "Marked Bills : 1000" },
-					{ value = 5000, text = "Marked Bills : 5000" },
-					{ value = 10000, text = "Marked Bills : 10000" }
+					{ value = 1000, text = "Dirty Money : 1000" },
+					{ value = 5000, text = "Dirty Money : 5000" },
+					{ value = 10000, text = "Dirty Money : 10000" }
 				},
 			},
 		},
 	})
 	if dialog == nil then return end
-	local amountbills = dialog.amountselect
-	local hasItem = QBCore.Functions.HasItem('markedbills', amountbills)
+	local amountdirty = dialog.amountselect
+	print(amountdirty)
+	local hasItem = QBCore.Functions.HasItem('dirtymoney', amountdirty)
 	if hasItem then
-		TriggerEvent("rsg_moneywash:client:client:washcycle", amountbills)
+		TriggerEvent("rsg_moneywash:client:client:washcycle", amountdirty)
 	else
-		QBCore.Functions.Notify("You do not have enough marked bills to do that!", "error")
+		QBCore.Functions.Notify("You do not have enough dirty money to do that!", "error")
 	end
 end)
 
