@@ -113,7 +113,7 @@ Citizen.CreateThread(function()
             {
                 type = "client",
 				event = "rsg_moneywash:client:dowashing",
-                icon = "fas fa-hammer",
+                icon = "fas fa-shower",
                 label = "Start Washing",
             },
         },
@@ -138,14 +138,15 @@ RegisterNetEvent('rsg_moneywash:client:dowashing', function()
     })
     if input then
         if not input.amount then return end
-        TriggerEvent("rsg_moneywash:client:client:washcycle", input.amount)
+		local washmoney = tonumber(input.amount)
+        TriggerEvent("rsg_moneywash:client:client:washcycle", washmoney)
     end
 end)
 
 -- start the wash cycle
 RegisterNetEvent('rsg_moneywash:client:client:washcycle')
 AddEventHandler('rsg_moneywash:client:client:washcycle', function(amount)
-	QBCore.Functions.Progressbar("wash-cycle", "Washing Money..", 30000, false, true, {
+	QBCore.Functions.Progressbar("wash-cycle", "Checking your dirty money..", 10000, false, true, {
 		disableMovement = true,
 		disableCarMovement = true,
 		disableMouse = false,
